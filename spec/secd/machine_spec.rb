@@ -5,6 +5,7 @@ module SECD
   describe Machine do
     before(:all) do
       @secd = Machine.new
+      @secd.boot
     end
     
     describe "#run" do
@@ -55,13 +56,24 @@ module SECD
 
       it "SELを評価すると評価する対象を選択できる" do
         @secd.reboot
-        @secd.c.push [7, LDC]
-        @secd.c.push [9, LDC]
+        @secd.c.push [JOI, 7, LDC]
+        @secd.c.push [JOI, 9, LDC]
         @secd.c.push SEL
         @secd.c.push ATM
         @secd.c.push(5, LDC)
         @secd.run
         @secd.s.should eq([9])
+      end
+
+      it "CONを評価するとペアを作成できる" do
+        @secd.reboot
+        @secd.c.push CON
+        @secd.c.push(2, LDC)
+        @secd.c.push CON
+        @secd.c.push(3, LDC)
+        @secd.c.push MIL
+        @secd.run
+        @secd.s.should eq([[2, 3]])
       end
     end
   end

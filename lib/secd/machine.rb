@@ -9,8 +9,6 @@ module SECD
       @e = Register::Environment.new
       @c = Register::Control.new
       @d = Register::Dump.new
-
-      self.boot
     end
     attr_accessor :s, :e, :c, :d
     
@@ -23,6 +21,8 @@ module SECD
       SECD.const_set :CAR, Instruction.new(proc_car)
       SECD.const_set :ATM, Instruction.new(proc_atom)
       SECD.const_set :SEL, Instruction.new(proc_sel)
+      SECD.const_set :JOI, Instruction.new(proc_join)
+      SECD.const_set :CON, Instruction.new(proc_cons)
     end
 
     def reboot
@@ -36,6 +36,8 @@ module SECD
         instruction.apply if instruction.is_a? Instruction
       end
     end
+
+    private
 
     def proc_nil
       Proc.new { @s.push nil }
@@ -80,6 +82,20 @@ module SECD
         alternative = @c.pop
         @d = @c.dup
         @c = condition ? consequent : alternative
+      end
+    end
+    
+    def proc_join
+      Proc.new do
+        @c = @d
+      end
+    end
+
+    def proc_cons
+      Proc.new do
+        o1 = @s.pop
+        o2 = @s.pop
+        @s.push(o2.nil? ? [o1] : o2.unshift(o1))
       end
     end
   end
