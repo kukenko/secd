@@ -2,13 +2,9 @@
 
 module SECD
   module Register
-    class Stack < Array
-    end
-    class Environment < Array
-    end
-    class Control < Array
-    end
-    class Dump
-    end
+    class Stack < Array; end
+    class Environment < Array; end
+    class Control < Array; end
+    class Dump < Array; end
   end
 end
