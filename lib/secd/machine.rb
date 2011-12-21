@@ -16,6 +16,7 @@ module SECD
       SECD.const_set :MIL, Instruction.new(proc_nil)
       SECD.const_set :LDC, Instruction.new(proc_ldc)
       SECD.const_set :LD,  Instruction.new(proc_ld)
+      SECD.const_set :LDF, Instruction.new(proc_ldf)
       SECD.const_set :ADD, Instruction.new(proc_add)
       SECD.const_set :MLT, Instruction.new(proc_multi)
       SECD.const_set :CAR, Instruction.new(proc_car)
@@ -66,6 +67,9 @@ module SECD
 
     def proc_ldf
       Proc.new do
+        copied_e = @e.dup
+        copied_e.unshift @c.shift
+        @s.unshift copied_e
       end
     end
 

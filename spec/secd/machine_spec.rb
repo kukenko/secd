@@ -25,6 +25,12 @@ module SECD
         should eq(3)
       end
 
+      it "LDFを評価すると@sに@eと一緒に関数本体がにpushされる" do
+        @secd.store(LDF, [LD, [1, 2], LD, [1, 1], ADD])
+        @secd.run
+        should eq([[LD, [1, 2], LD, [1, 1], ADD]])
+      end
+
       it "ADDを評価すると@sにある定数を加算できる" do
         @secd.store(LDC, 2, LDC, 6, ADD)
         @secd.run
