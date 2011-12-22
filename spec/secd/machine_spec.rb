@@ -43,23 +43,23 @@ module SECD
         should eq(24)        
       end
 
-      it "LDを評価すると@eにある値が@sにpushされる" do
-        @secd.e.unshift([1, 3], [4, [5, 6]])
-        @secd.store(LD, [1, 1], CAR, LD, [0, 0], ADD)
-        @secd.run
-        should eq(6)
-      end
-
       it "SELを評価すると評価する対象を選択できる" do
-        @secd.store(LDC, 5, ATM, SEL, [LDC, 9, JOI], [LDC, 7, JOI])
+        @secd.store(LDC, 5, ATOM, SEL, [LDC, 9, JOIN], [LDC, 7, JOIN])
         @secd.run
         should eq(9)
       end
 
       it "CONを評価するとペアを作成できる" do
-        @secd.store(MIL, LDC, 3, CON, LDC, 2, CON)
+        @secd.store(MIL, LDC, 3, CONS, LDC, 2, CONS)
         @secd.run
         should eq([2, 3])
+      end
+
+      it "APを評価すると@sにある関数が適用される" do
+        @secd.store(NIL, LDC, 3, CONS, LDC, 2, CONS)
+        @secd.store(LDF, [LD, [0, 1], LD, [0, 0], ADD, RTN], AP)
+        @secd.run
+        should eq(5)
       end
     end
   end

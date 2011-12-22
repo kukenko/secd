@@ -10,24 +10,28 @@ module SECD
       @c = Register::Control.new
       @d = Register::Dump.new
     end
-    attr_accessor :e
     
     def boot
-      SECD.const_set :MIL, Instruction.new(proc_nil)
-      SECD.const_set :LDC, Instruction.new(proc_ldc)
-      SECD.const_set :LD,  Instruction.new(proc_ld)
-      SECD.const_set :LDF, Instruction.new(proc_ldf)
-      SECD.const_set :ADD, Instruction.new(proc_add)
-      SECD.const_set :MLT, Instruction.new(proc_multi)
-      SECD.const_set :CAR, Instruction.new(proc_car)
-      SECD.const_set :ATM, Instruction.new(proc_atom)
-      SECD.const_set :SEL, Instruction.new(proc_sel)
-      SECD.const_set :JOI, Instruction.new(proc_join)
-      SECD.const_set :CON, Instruction.new(proc_cons)
+      SECD.const_set :MIL,  Instruction.new(proc_nil)
+      SECD.const_set :LDC,  Instruction.new(proc_ldc)
+      SECD.const_set :LD,   Instruction.new(proc_ld)
+      SECD.const_set :LDF,  Instruction.new(proc_ldf)
+      SECD.const_set :AP,   Instruction.new(proc_ap)
+      SECD.const_set :RTN,  Instruction.new(proc_rtn)
+      SECD.const_set :ADD,  Instruction.new(proc_add)
+      SECD.const_set :MLT,  Instruction.new(proc_multi)
+      SECD.const_set :CAR,  Instruction.new(proc_car)
+      SECD.const_set :ATOM, Instruction.new(proc_atom)
+      SECD.const_set :SEL,  Instruction.new(proc_sel)
+      SECD.const_set :JOIN, Instruction.new(proc_join)
+      SECD.const_set :CONS, Instruction.new(proc_cons)
     end
 
     def reboot
       @s.clear
+      @e.clear
+      @c.clear
+      @d.clear
     end
 
     def store(*codes)
@@ -73,6 +77,28 @@ module SECD
       end
     end
 
+    def proc_ap
+      Proc.new do
+        e = @s.shift
+        body = e.shift
+        args = @s.shift
+        @d.unshift(@s.dup, e, @c.dup)
+        @c = body
+        @e.unshift args
+        @s = Register::Stack.new
+      end
+    end
+
+    def proc_rtn
+      Proc.new do
+        ret = @s.shift
+        @s = @d.shift
+        @s.unshift ret
+        @e = @d.shift
+        @c = @d.shift
+      end
+    end
+
     def proc_add
       Proc.new { @s.unshift(@s.shift + @s.shift) }
     end
@@ -104,7 +130,7 @@ module SECD
     end
     
     def proc_join
-      Proc.new { @c = @d }
+      Proc.new { @c = @d.unshift }
     end
 
     def proc_cons
