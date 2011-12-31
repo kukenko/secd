@@ -1,13 +1,14 @@
 # -*- coding: utf-8 -*-
+module Secd
+  class InstructionError < StandardError; end
 
-module SECD
   class Instruction
-    def initialize(spec)
-      @spec = spec
+    def initialize(context)
+      @context = context
     end
 
     def apply
-      @spec.call
+      raise InstructionError
     end
   end
 end
