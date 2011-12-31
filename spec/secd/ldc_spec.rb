@@ -3,13 +3,11 @@ require 'spec_helper'
 
 module Secd
   describe Ldc do
-    before(:all) do
-      @ctx = Context.new
-      @ctx.control.unshift(Secd::Ldc.new(@ctx), 3)
-    end
+    let(:ctx) { Context.new }
 
     it "定数をスタックにプッシュする" do
-      vm = Vm.new(@ctx)
+      vm = Vm.new(ctx)
+      vm.load(Secd::Ldc.new(ctx), 3)
       vm.run
       vm.stop.should eq(3)
     end

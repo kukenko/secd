@@ -3,13 +3,11 @@ require 'spec_helper'
 
 module Secd
   describe Mul do
-    before(:all) do
-      @ctx = Context.new
-      @ctx.control.unshift(Secd::Mul.new(@ctx), 3, 9)
-    end
+    let(:ctx) { Context.new }
 
     it "乗算の結果をスタックにプッシュする" do
-      vm = Vm.new(@ctx)
+      vm = Vm.new(ctx)
+      vm.load(Secd::Mul.new(ctx), 3, 9)
       vm.run
       vm.stop.should eq(27)
     end

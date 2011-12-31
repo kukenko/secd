@@ -3,17 +3,14 @@ require 'spec_helper'
 
 module Secd
   describe Join do
-    before(:all) do
-      @ctx = Context.new
-      @ctx.control.unshift 3
-      @ctx.control.unshift Secd::Ldc.new(@ctx)
-      @ctx.dump.unshift @ctx.control.dup
-      @ctx.control.clear
-      @ctx.control.unshift Secd::Join.new(@ctx)      
-    end
+    let(:ctx) { Context.new }
 
     it "ダンプからリスト参照をポップしそれをCレジスタにセットする。" do
-      vm = Vm.new(@ctx)
+      vm = Vm.new(ctx)
+      vm.load(Secd::Ldc.new(ctx), 3)
+      ctx.dump.unshift ctx.control.dup
+      ctx.control.clear
+      vm.load(Secd::Join.new(ctx))
       vm.run
       vm.stop.should eq(3)
     end
