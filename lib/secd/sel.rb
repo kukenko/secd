@@ -6,7 +6,7 @@ module Secd
     def call
       t_clause, f_clause = @context.control
 
-      @context.dump.unshift @context.control.dup
+      @context.save(:c)
 
       if @context.stack.shift
         @context.control = t_clause

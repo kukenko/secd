@@ -5,7 +5,9 @@ module Secd
   class Ap < Instruction
     def apply
       code, env, args = @context.stack
-      @context.dump = [@context.stack.dup, @context.environment.dup, @context.control.dup]
+      @context.save(:s)
+      @context.save(:e)
+      @context.save(:c)
       @context.stack = Array.new
       @context.environment = (env.unshift args)
       @context.control = code

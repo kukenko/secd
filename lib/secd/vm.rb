@@ -18,12 +18,12 @@ module Secd
       end
     end
 
-    def load(*instructions)
+    def store(*instructions)
       @context.push_to_control(instructions)
     end
 
     def stop
-      @context.stack.pop
+      @context.pop
     end
   end
 end

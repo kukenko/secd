@@ -5,7 +5,7 @@ module Secd
   class Ld < Instruction
     def call
       arg = @context.control.shift
-      @context.stack.unshift @context.environment[arg.first][arg.last]
+      @context.push @context.environment[arg.first][arg.last]
     end
   end
 end

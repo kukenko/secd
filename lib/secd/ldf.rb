@@ -5,7 +5,7 @@ module Secd
   class Ldf < Instruction
     def call
       code = @context.control.shift
-      @context.stack.push(code, @context.environment.dup)
+      @context.push [code, @context.environment.dup]
     end
   end
 end

@@ -5,7 +5,7 @@ module Secd
   class Mul < Instruction
     def call
       n1, n2 = @context.control
-      @context.stack.unshift(n1 * n2)
+      @context.push(n1 * n2)
     end
   end
 end

@@ -5,7 +5,7 @@ module Secd
   class Ldc < Instruction
     def call
       arg = @context.control.shift
-      @context.stack.push arg
+      @context.push arg
     end
   end
 end

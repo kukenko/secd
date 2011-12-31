@@ -4,7 +4,7 @@ require 'secd/Instruction'
 module Secd
   class Join < Instruction
     def call
-      @context.control = @context.dump.shift
+      @context.load(:c)
     end
   end
 end

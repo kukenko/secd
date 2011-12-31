@@ -7,7 +7,7 @@ module Secd
 
     it "定数をスタックにプッシュする" do
       vm = Vm.new(ctx)
-      vm.load(Secd::Ldc.new, 3)
+      vm.store(Secd::Ldc.new, 3)
       vm.run
       vm.stop.should eq(3)
     end

@@ -8,7 +8,7 @@ module Secd
     end
 
     def apply(context)
-      @context = context until @context
+      @context ||= context
     end
 
     def call

@@ -4,6 +4,6 @@ $:.unshift File.dirname(__FILE__) + "/../lib"
 require 'secd'
 
 vm = Secd::Vm.new(Secd::Context.new)
-vm.load(Secd::Add.new, 3, 4)
+vm.store(Secd::Add.new, 3, 4)
 vm.run
 puts vm.stop
