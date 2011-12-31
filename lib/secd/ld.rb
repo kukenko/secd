@@ -3,7 +3,7 @@ require 'secd/instruction'
 
 module Secd
   class Ld < Instruction
-    def apply
+    def call
       arg = @context.control.shift
       @context.stack.unshift @context.environment[arg.first][arg.last]
     end

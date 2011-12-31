@@ -3,8 +3,7 @@
 $:.unshift File.dirname(__FILE__) + "/../lib"
 require 'secd'
 
-ctx = Secd::Context.new
-ctx.control.unshift(Secd::Add.new(ctx), 3, 4)
-vm = Secd::Vm.new(ctx)
+vm = Secd::Vm.new(Secd::Context.new)
+vm.load(Secd::Add.new, 3, 4)
 vm.run
 puts vm.stop

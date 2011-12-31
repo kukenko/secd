@@ -3,7 +3,7 @@ require 'secd/Instruction'
 
 module Secd
   class Rtn < Instruction
-    def apply
+    def call
       result = @context.stack.shift
       s, e, c = @context.dump
       @context.stack = s

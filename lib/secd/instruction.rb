@@ -3,11 +3,15 @@ module Secd
   class InstructionError < StandardError; end
 
   class Instruction
-    def initialize(context)
-      @context = context
+    def initialize
+      @context
     end
 
-    def apply
+    def apply(context)
+      @context = context until @context
+    end
+
+    def call
       raise InstructionError
     end
   end

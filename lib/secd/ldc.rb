@@ -3,7 +3,7 @@ require 'secd/instruction'
 
 module Secd
   class Ldc < Instruction
-    def apply
+    def call
       arg = @context.control.shift
       @context.stack.push arg
     end

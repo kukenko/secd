@@ -3,7 +3,7 @@ require 'secd/instruction'
 
 module Secd
   class Sel < Instruction
-    def apply
+    def call
       t_clause, f_clause = @context.control
 
       @context.dump.unshift @context.control.dup

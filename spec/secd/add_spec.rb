@@ -7,7 +7,7 @@ module Secd
 
     it "加算の結果をスタックにプッシュする" do
       vm = Vm.new(ctx)
-      vm.load(Secd::Add.new(ctx), 3, 4)
+      vm.load(Secd::Add.new, 3, 4)
       vm.run
       vm.stop.should eq(7)
     end

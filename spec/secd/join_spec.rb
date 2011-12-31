@@ -7,10 +7,10 @@ module Secd
 
     it "ダンプからリスト参照をポップしそれをCレジスタにセットする。" do
       vm = Vm.new(ctx)
-      vm.load(Secd::Ldc.new(ctx), 3)
+      vm.load(Secd::Ldc.new, 3)
       ctx.dump.unshift ctx.control.dup
       ctx.control.clear
-      vm.load(Secd::Join.new(ctx))
+      vm.load(Secd::Join.new)
       vm.run
       vm.stop.should eq(3)
     end

@@ -11,7 +11,10 @@ module Secd
       loop do
         break if @context.control.empty?
         instruction = @context.control.shift
-        instruction.apply if instruction.is_a? Secd::Instruction
+        if instruction.is_a? Secd::Instruction
+          instruction.apply(@context)
+          instruction.call
+        end
       end
     end
 

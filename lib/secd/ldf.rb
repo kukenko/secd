@@ -3,7 +3,7 @@ require 'secd/instruction'
 
 module Secd
   class Ldf < Instruction
-    def apply
+    def call
       code = @context.control.shift
       @context.stack.push(code, @context.environment.dup)
     end
