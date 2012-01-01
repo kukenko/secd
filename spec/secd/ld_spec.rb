@@ -8,7 +8,7 @@ module Secd
     it "変数の値をスタックにプッシュする" do
       vm = Vm.new(ctx)
       ctx.environment.unshift([1], [2, 3, 4], [5], [6, 7])
-      vm.store(Secd::Ld.new, [1, 2])
+      vm.store [Secd::Ld.new, [1, 2]]
       vm.run
       vm.stop.should eq(4)
     end

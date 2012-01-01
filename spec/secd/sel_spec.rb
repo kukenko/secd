@@ -9,9 +9,8 @@ module Secd
       ctx.stack.unshift true
 
       vm = Vm.new(ctx)
-      vm.store(Secd::Sel.new)
-      vm.store([Secd::Ldc.new, 7])
-      vm.store([Secd::Ldc.new, 9])
+      vm.store [Secd::Sel.new]
+      vm.store [[Secd::Ldc.new, 7],[Secd::Ldc.new, 9]]
       vm.run
       vm.stop.should eq(7)
     end
@@ -20,9 +19,8 @@ module Secd
       ctx.stack.unshift false
 
       vm = Vm.new(ctx)
-      vm.store(Secd::Sel.new)
-      vm.store([Secd::Ldc.new, 7])
-      vm.store([Secd::Ldc.new, 9])
+      vm.store [Secd::Sel.new]
+      vm.store [[Secd::Ldc.new, 7], [Secd::Ldc.new, 9]]
       vm.run
       vm.stop.should eq(9)
     end

@@ -11,7 +11,7 @@ module Secd
       ctx.dump[:e] = [[1], [2, 3, 4], [5], [6, 7]]
       ctx.dump[:c] = [Secd::Ldc.new, 3]
       ctx.push 10
-      vm.store Secd::Rtn.new
+      vm.store [Secd::Rtn.new]
       vm.run
       vm.stop.should eq(3)      
     end

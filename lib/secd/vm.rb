@@ -18,7 +18,7 @@ module Secd
       end
     end
 
-    def store(*instructions)
+    def store(instructions)
       @context.push_to_control(instructions)
     end
 
