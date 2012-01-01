@@ -3,7 +3,7 @@ require 'secd/instruction'
 
 module Secd
   class Ap < Instruction
-    def apply
+    def call
       code, env, args = @context.stack
       @context.save(:s)
       @context.save(:e)

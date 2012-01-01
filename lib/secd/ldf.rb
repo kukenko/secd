@@ -4,8 +4,8 @@ require 'secd/instruction'
 module Secd
   class Ldf < Instruction
     def call
-      code = @context.control.shift
-      @context.push [code, @context.environment.dup]
+      @context.push @context.environment.dup
+      @context.push @context.control.shift
     end
   end
 end
