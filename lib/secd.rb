@@ -1,4 +1,4 @@
-# -*- coding: utf-8 -*-
+# coding: utf-8
 require 'secd/instruction'
 require 'secd/ldc'
 require 'secd/ld'

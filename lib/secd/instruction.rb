@@ -1,4 +1,4 @@
-# -*- coding: utf-8 -*-
+# coding: utf-8
 module Secd
   class InstructionError < StandardError; end
 
