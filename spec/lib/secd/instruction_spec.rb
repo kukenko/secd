@@ -37,7 +37,7 @@ module Secd
         @secd.result.should eq(1)
       end
     end
-    
+
     describe "#ld" do
       it "push variable loaded from environment" do
         @secd.code << [1,1]
@@ -120,41 +120,44 @@ module Secd
     end
 
     describe "#ldf" do
-      it "push clojure to stack" do
+      let(:closure) { Struct.new(:code, :env).new(:body, :env) }
+      it "push closure to stack" do
         @secd.code << :body
         @secd.ldf
-        @secd.result.should eq([:body, @secd.environment])
+        @secd.result.should respond_to(:code)
+        @secd.result.should respond_to(:env)
       end
     end
 
     describe "#ap" do
+      let(:closure) { Struct.new(:code, :env).new(:body, []) }
       it "set arguments as environment" do
-        @secd.stack << [:args] << [:body, []]
+        @secd.stack << [:args] << closure
         @secd.ap
         @secd.environment.should eq([[:args]])
       end
-      
+
       it "clear stack" do
-        @secd.stack << [:args] << [:body, []]
+        @secd.stack << [:args] << closure
         @secd.ap
         @secd.result.should be_nil
       end
 
       it "push function to code" do
-        @secd.stack << [:args] << [:body, []]
+        @secd.stack << [:args] << closure
         @secd.ap
         @secd.code.should eq(:body)
       end
 
       it "save S E C to dump" do
-        @secd.stack << :s << [:args] << [:body, []]
+        @secd.stack << :s << [:args] << closure
         @secd.environment << :e
         @secd.code << :c
         @secd.ap
         @secd.dump.should eq([[[:s], [:e], [:c]]])
       end
     end
-    
+
     describe "#rtn" do
       it "restore S from dump and push return value" do
         @secd.stack << 1
@@ -179,7 +182,7 @@ module Secd
 
   class SecdMock
     include Instruction
-    
+
     def initialize
       @stack = Stack.new
       @environment = Stack.new
@@ -191,7 +194,7 @@ module Secd
     def result
       @stack.first
     end
-    
+
     class Stack < Array
     end
   end
