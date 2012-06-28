@@ -1,6 +1,7 @@
 GEM
   remote: https://rubygems.org/
   specs:
+    blankslate (2.1.2.4)
     diff-lcs (1.1.3)
     ffi (1.0.11)
     growl (1.0.3)
@@ -13,6 +14,8 @@ GEM
       rb-fchange (~> 0.0.5)
       rb-fsevent (~> 0.9.1)
       rb-inotify (~> 0.8.8)
+    parslet (1.4.0)
+      blankslate (~> 2.0)
     rb-fchange (0.0.5)
       ffi
     rb-fsevent (0.9.1)
@@ -34,4 +37,5 @@ PLATFORMS
 DEPENDENCIES
   growl
   guard-rspec
+  parslet
   rspec

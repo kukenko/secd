@@ -6,17 +6,17 @@ module Secd
     let(:machine) { Machine.new }
 
     describe '#run' do
-      context "with 'nil'" do
+      context 'with [:nil!]' do
         it 'returns nil' do
-          code = Compiler.compile('nil')
-          machine.load code
+          machine.load([:nil!])
           machine.run.should be_nil
         end
       end
 
-      context 'with [:ldc, 1]' do
+      context "with '1'" do
         it 'returns 1' do
-          machine.load([:ldc, 1])
+          code = Compiler.compile('1')
+          machine.load(code)
           machine.run.should eq(1)
         end
       end
