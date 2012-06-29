@@ -10,6 +10,11 @@ module Secd
         it { code.should eq([:ldc, 1])}
       end
 
+      context "with '(1)'" do
+        let(:code) { Compiler.compile('(1)') }
+        it { code.should eq([:ldc, 1])}
+      end
+
       context "with '(+ 1 2)'" do
         let(:code) { Compiler.compile('(+ 1 2)') }
         it do

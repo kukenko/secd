@@ -63,7 +63,6 @@ module Secd
       @code = closure.code
       @environment = closure.env
       @environment << argument
-
     end
 
     def rtn
