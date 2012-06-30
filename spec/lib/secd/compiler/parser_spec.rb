@@ -9,7 +9,8 @@ module Secd
       describe '#parse' do
         it { parser.parse('1') }
         it { parser.parse('(1)') }
-        it { parser.parse('(1 1)') }
+        it { parser.parse('(1 2)') }
+        it { parser.parse('(+ 1 2)') }
       end
 
     end
