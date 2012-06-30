@@ -11,6 +11,8 @@ module Secd
         it { parser.parse('(1)') }
         it { parser.parse('(1 2)') }
         it { parser.parse('(+ 1 2)') }
+        it { parser.parse('(+ 1 (+ 2 3))') }
+        it { parser.parse('(- 3 (+ 2 1))') }
       end
 
     end

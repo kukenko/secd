@@ -20,13 +20,16 @@ module Secd
       def eval
         car = elements.shift
         cdr = elements
-        [cdr.map { |elem| elem.eval}, car.eval].flatten
+        [cdr.map { |elem| elem.eval }, car.eval].flatten
       end
     end
 
     class Sym < Struct.new(:sym)
       def eval
-        :add
+        case sym
+          when '+' then :add
+          when '-' then :sub
+        end
       end
     end
   end

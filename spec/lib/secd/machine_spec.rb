@@ -21,11 +21,19 @@ module Secd
         end
       end
 
-      context "with '(+ 6 2)'" do
-        it 'returns 8' do
-          code = Compiler.compile('(+ 6 2)')
+      context "with '(+ 1 (+ 2 3))'" do
+        it 'returns 6' do
+          code = Compiler.compile('(+ 1 (+ 2 3))')
           machine.load(code)
-          machine.run.should eq(8)
+          machine.run.should eq(6)
+        end
+      end
+
+      context "with '(- 3 (+ 2 1))'" do
+        it 'return 0' do
+          code = Compiler.compile('(- 3 (+ 2 1))')
+          machine.load(code)
+          machine.run.should eq(0)
         end
       end
 
