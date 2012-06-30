@@ -10,10 +10,10 @@ module Secd
 
       rule(:lparen)     { str('(') >> space? }
       rule(:rparen)     { space? >> str(')') }
-      
+
       rule(:integer)    { match('[0-9]').repeat(1).as(:int) }
       rule(:symbol)     { match['+'].as(:sym) }
-      
+
       rule(:arg)        { symbol | integer | list }
       rule(:args)       { (arg >> space?).repeat }
       rule(:list)       { lparen >> args.as(:exp) >> rparen }

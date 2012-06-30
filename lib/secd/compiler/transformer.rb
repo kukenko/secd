@@ -6,6 +6,7 @@ module Secd
   module Compiler
     class Transformer < Parslet::Transform
       rule(:int => simple(:int))   { Ldc.new(int) }
+      rule(:sym => simple(:sym))   { Sym.new(sym) }
       rule(:exp => sequence(:exp)) { List.new(exp) }
     end
 
@@ -18,9 +19,15 @@ module Secd
     class List < Struct.new(:elements)
       def eval
         car = elements.shift
-        car.eval
+        cdr = elements
+        [cdr.map { |elem| elem.eval}, car.eval].flatten
+      end
+    end
+
+    class Sym < Struct.new(:sym)
+      def eval
+        :add
       end
     end
   end
 end
-

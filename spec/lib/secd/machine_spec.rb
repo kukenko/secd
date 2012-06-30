@@ -21,16 +21,17 @@ module Secd
         end
       end
 
-      context 'with [:ldc, 6, :ldc, 2, :add]' do
+      context "with '(+ 6 2)'" do
         it 'returns 8' do
-          machine.load([:ldc, 6, :ldc, 2, :add])
+          code = Compiler.compile('(+ 6 2)')
+          machine.load(code)
           machine.run.should eq(8)
         end
       end
 
       context 'with [:ld, [1,1], :car, :ld, [0,0], :add]' do
         it 'returns 6' do
-	  machine.instance_eval do
+          machine.instance_eval do
             @secd.instance_eval do
               @environment << [1,3] << [4,[5,6]]
             end

@@ -18,8 +18,7 @@ module Secd
       context "with '(+ 1 2)'" do
         let(:code) { Compiler.compile('(+ 1 2)') }
         it do
-          pending
-          code.should eq([2, :ldc, 1, :ldc, :pls])
+          code.should eq([:ldc, 1, :ldc, 2, :add])
         end
       end
     end
