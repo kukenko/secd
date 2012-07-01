@@ -49,9 +49,10 @@ module Secd
         end
       end
 
-      context 'with [:ldc, 5, :atom, :sel, [:ldc, 9, :join], [:ldc, 7, :join]]' do
-        it 'returns 9' do
-          machine.load([:ldc, 5, :atom, :sel, [:ldc, 9, :join], [:ldc, 7, :join]])
+      context "with '(if (atom 5) 9 7)'" do
+        it 'return 9' do
+          code = Compiler.compile('(if (atom 5) 9 7)')
+          machine.load(code)
           machine.run.should eq(9)
         end
       end

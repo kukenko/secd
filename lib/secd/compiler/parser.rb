@@ -12,7 +12,11 @@ module Secd
       rule(:rparen)     { space? >> str(')') }
 
       rule(:integer)    { match('[0-9]').repeat(1).as(:int) }
-      rule(:symbol)     { match['+-'].as(:sym) }
+      rule(:symbol) do
+        head = %r{[a-zA-z!$%&*/:<=>?^_~+-]}
+        body = %r{[a-zA-z=*_+-?!]}
+        (match(head) >> (integer | match(body)).repeat(0)).as(:sym)
+      end
 
       rule(:arg)        { symbol | integer | list }
       rule(:args)       { (arg >> space?).repeat }
