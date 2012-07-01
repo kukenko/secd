@@ -28,6 +28,13 @@ module Secd
           code.should eq([:ldc, 3, :ldc, 2, :ldc, 1, :add, :sub])
         end
       end
+
+      context "with '(if (atom 5) 9 7)'" do
+        let(:code) { Compiler.compile('(if (atom 5) 9 7)') }
+        it do
+          code.should eq([:ldc, 5, :atom, :sel, [:ldc, 9, :join], [:ldc, 7, :join]])
+        end
+      end
     end
 
   end
