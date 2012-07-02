@@ -7,14 +7,14 @@ module Secd
     include Instruction
 
     def initialize
-      @stack = Stack.new
+      @stack       = Stack.new
       @environment = Stack.new
-      @code = Stack.new
-      @dump = Stack.new
+      @code        = Stack.new
+      @dump        = Stack.new
     end
 
     def store(instruction)
-      # we need deep reverse
+      # I need deep reverse
       @code = instruction.map { |v| v.is_a?(Array) ? v.reverse : v }.reverse
     end
 

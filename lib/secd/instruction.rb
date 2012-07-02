@@ -12,11 +12,11 @@ module Secd
     end
 
     def add
-      @stack << @stack.pop + @stack.pop
+      @stack << @stack.pop(2).inject(:+)
     end
 
     def sub
-      @stack << (-@stack.pop) + @stack.pop
+      @stack << @stack.pop(2).inject(:-)
     end
 
     def ld
@@ -25,10 +25,9 @@ module Secd
     end
 
     def sel
-      if_clause   = next_code
-      else_clause = next_code
-      @dump << @code
-      @code = @stack.pop ? if_clause : else_clause
+      else_clause, if_clause = @code.pop(2)
+      @dump << @code.dup
+      @code = evaluate_true? ? if_clause : else_clause
     end
 
     def join
@@ -44,8 +43,7 @@ module Secd
     end
 
     def cons
-      car = @stack.pop
-      cdr = @stack.pop
+      cdr, car = @stack.pop(2)
       @stack << (cdr ? (cdr << car): ([] << car))
     end
 
@@ -55,8 +53,7 @@ module Secd
     end
 
     def ap
-      closure  = @stack.pop
-      argument = @stack.pop
+      argument, closure = @stack.pop(2)
       @dump << [@stack.dup, @environment.dup, @code.dup]
       @stack.clear
       @code.clear
@@ -77,6 +74,10 @@ module Secd
 
     def next_code
       @code.pop
+    end
+
+    def evaluate_true?
+      @stack.pop
     end
   end
 end
